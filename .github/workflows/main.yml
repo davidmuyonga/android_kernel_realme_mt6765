@@ -26,7 +26,7 @@ jobs:
       env:
         NAME: Art3mis
       with:
-        arch: arm64
+        arch: arm64 
         compiler: gcc/10
         defconfig: RMX2185_defconfig
         image: Image.gz-dtb
