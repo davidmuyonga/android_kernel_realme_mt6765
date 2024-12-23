@@ -1,8 +1,8 @@
-name: Build on push master
+name: Build on Tag
 
 on:
   push:
-    branches: [ lineage-17.1 ]
+    tags: '*'
 
 jobs:
   build:
@@ -21,17 +21,15 @@ jobs:
       uses: lemniskett/android-kernel-actions@master
       id: build
       env:
-        NAME: Art3mis
+        NAME: Dark-Ages-Último
       with:
         arch: arm64
         compiler: gcc/10
-        defconfig: RMX2185_defconfig
+        defconfig: vince_defconfig
         image: Image.gz-dtb
 
     - name: Release build
-      uses: appleboy/telegram-action@master
+      uses: ncipollo/release-action@v1
       with:
-        to: ${{ secrets.CHANNEL_ID }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        message: Kernel is built!, took ${{ steps.build.outputs.elapsed_time }} seconds.
-        document: ${{ steps.build.outputs.outfile }}
+        artifacts: ${{ steps.build.outputs.outfile }}
+        token: ${{ secrets.GITHUB_TOKEN }}
