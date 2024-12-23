@@ -2,9 +2,8 @@ name: Build Kernel
 
 on:
   push:
-    branches:
-      - lineage-17.1 # Adjust the branch name if needed
-  workflow_dispatch:
+    tags: '*' # Trigger on tag creation
+  workflow_dispatch: # Allow manual dispatch
 
 jobs:
   build:
