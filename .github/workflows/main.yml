@@ -1,24 +1,16 @@
-name: Build on Tag
+name: Build Kernel
 
 on:
   push:
-    tags: '*'
+    branches:
+      - lineage-17.1 # Adjust the branch name if needed
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Generate token
-      id: generate_token
-      uses: tibdex/github-app-token@v1
-      with:
-        app_id: ${{ secrets.APP_ID }}
-        private_key: ${{ secrets.PRIVATE_KEY }}
-
-    - uses: actions/checkout@v2
-      with:
-        token: ${{ steps.generate_token.outputs.token }}
-
     - name: Checkout kernel source
       uses: actions/checkout@v2
 
@@ -27,9 +19,6 @@ jobs:
       with:
         repository: lemniskett/AnyKernel3
         path: zipper
-
-    - name: Cache
-      uses: actions/cache@v4.2.0
 
     - name: Android kernel build
       uses: lemniskett/android-kernel-actions@master
