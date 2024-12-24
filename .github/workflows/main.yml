@@ -21,11 +21,11 @@ jobs:
       uses: lemniskett/android-kernel-actions@master
       id: build
       env:
-        NAME: Dark-Ages-Último
+        NAME: Art3mis
       with:
         arch: arm64
         compiler: gcc/10
-        defconfig: vince_defconfig
+        defconfig: RMX2185_defconfig
         image: Image.gz-dtb
 
     - name: Release build
