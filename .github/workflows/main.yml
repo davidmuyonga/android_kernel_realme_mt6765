@@ -1,7 +1,16 @@
+name: Build on Tag
+
+on:
+  push:
+    tags: '*'
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Cache
+        uses: actions/cache@v4.2.0
+           
       - name: Checkout kernel source
         uses: actions/checkout@v2
 
@@ -21,12 +30,9 @@ jobs:
           compiler: gcc/10
           defconfig: RMX2185_defconfig
           image: Image.gz-dtb
-
+          
       - name: Debug - List workspace contents
         run: ls -R /github/workspace
-
-      - name: Debug - Check build output
-        run: echo "Build output file: ${{ steps.build.outputs.outfile }}"
 
       - name: Debug - List contents of /github/workspace/zipper
         run: ls -l /github/workspace/zipper
